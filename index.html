@@ -843,11 +843,16 @@ const VID2_TV_EP  = "https://vidsrc.to/embed/tv/{id}/{season}/{episode}";
 const EMB3_MOVIE  = "https://www.2embed.cc/embed/{id}";
 const EMB3_TV     = "https://www.2embed.cc/embedtv/{id}";
 const EMB3_TV_EP  = "https://www.2embed.cc/embedtv/{id}&s={season}&e={episode}";
+/* Server 4: vidbolt.xyz (corak /embed/tv/{id}/{season}/{episode} sah dari salinan Drive; /embed/movie/{id} ikut corak sama) */
+const VID4_MOVIE  = "https://vidbolt.xyz/embed/movie/{id}";
+const VID4_TV     = "https://vidbolt.xyz/embed/tv/{id}";
+const VID4_TV_EP  = "https://vidbolt.xyz/embed/tv/{id}/{season}/{episode}";
 /* Senarai server. Tambah lagi server di sini (format sama), butang pilih server akan muncul automatik bila ada 2+ */
 const SERVERS=[
   {n:"Server 1",m:EMBED_MOVIE,t:EMBED_TV,e:EMBED_TV_EP},
   {n:"Server 2",m:VID2_MOVIE,t:VID2_TV,e:VID2_TV_EP},
-  {n:"Server 3",m:EMB3_MOVIE,t:EMB3_TV,e:EMB3_TV_EP}
+  {n:"Server 3",m:EMB3_MOVIE,t:EMB3_TV,e:EMB3_TV_EP},
+  {n:"Server 4",m:VID4_MOVIE,t:VID4_TV,e:VID4_TV_EP}
 ];
 /* ===================== */
 const API="https://api.themoviedb.org/3",IMG="https://image.tmdb.org/t/p/";
