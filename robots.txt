@@ -1,14 +1,3 @@
-# Allow all search engine crawlers
 User-agent: *
-Allow: /
 
-# Block access to private/system directories
-Disallow: /admin/
-Disallow: /api/
-Disallow: /login
-Disallow: /register
-Disallow: /dashboard/
-Disallow: /embed/
-
-# Specify Sitemap location
 Sitemap: https://balflix.my.id/sitemap.xml
