@@ -1,3 +1,2 @@
 User-agent: *
-
 Sitemap: https://balflix.my.id/sitemap.xml
