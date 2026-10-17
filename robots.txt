@@ -1,6 +1,3 @@
 User-agent: *
-Allow: /
-Disallow: /search
-Disallow: /private/
 
 Sitemap: https://balflix.my.id/sitemap.xml
