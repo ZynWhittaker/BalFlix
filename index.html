@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.72, minimum-scale=0.4, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.4, viewport-fit=cover">
 <title>BalFlix - Movie &amp; TV Series Streaming</title>
 <meta name="theme-color" content="#07070d">
 <meta name="description" content="BalFlix - tonton movie dan TV series terkini dengan mudah. Cari filem, siri, trending dan top rated dalam satu tempat.">
@@ -396,29 +396,6 @@ html.dl,html.dl body{overflow:hidden}dialog{overscroll-behavior:contain}
 .card .bk{width:36px;height:36px;top:10px;right:10px}.card .tag{top:10px;left:10px}
 }
 
-/* ---- splash screen ---- */
-#spl{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:radial-gradient(60% 40% at 50% 46%,rgba(161,161,170,.16),transparent 70%),#07070d;transition:opacity .5s ease,visibility 0s .5s}
-#spl.out{opacity:0;visibility:hidden;pointer-events:none}
-#spl .sl{font:800 clamp(56px,16vw,120px)/1 Figtree,Inter,sans-serif;letter-spacing:-.03em;color:#5a5a60;animation:slin .9s cubic-bezier(.2,.9,.3,1) both}
-#spl .sl b{color:#fff}
-#spl .sbar{width:clamp(110px,30vw,180px);height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;animation:slin .9s .2s cubic-bezier(.2,.9,.3,1) both}
-#spl .sbar i{display:block;height:100%;background:#a1a1aa;transform-origin:left;animation:sbar 1.7s .2s cubic-bezier(.4,0,.2,1) both}
-@keyframes slin{from{opacity:0;transform:scale(.82);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
-@keyframes sbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@media (prefers-reduced-motion:reduce){#spl .sl,#spl .sbar,#spl .sbar i{animation:none}#spl{transition:none}}
-/* ---- splash logo: merah + putih, glow + shine kiri ke kanan ---- */
-#spl .sl{position:relative;color:#dcdce2;animation:slin .9s cubic-bezier(.2,.9,.3,1) both,slGlow 3s ease-in-out .9s infinite}
-#spl .sl{background:linear-gradient(90deg,#ffffff 0%,#ffffff 54%,#ff8a93 70%,#ff2a3c 86%,#d3122a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-#spl .sl b{background:none;color:inherit;-webkit-text-fill-color:transparent}
-#spl .sl::after{content:"BalFlix";position:absolute;left:0;top:0;pointer-events:none;
-  background:linear-gradient(105deg,transparent 0%,transparent 36%,rgba(255,40,60,.95) 44%,#fff 50%,rgba(255,40,60,.95) 56%,transparent 64%,transparent 100%);
-  background-size:250% 100%;background-position:150% 0;background-repeat:no-repeat;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
-  animation:logoShine 3.4s cubic-bezier(.2,.6,.35,1) .5s infinite}
-#spl .sbar i{animation-duration:2.6s;background:linear-gradient(90deg,#d3122a,#ff3340)}
-@keyframes slGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,60,70,.3)) drop-shadow(0 0 14px rgba(255,60,70,.15))}
-  50%{filter:drop-shadow(0 0 10px rgba(255,90,100,.7)) drop-shadow(0 0 30px rgba(255,40,60,.4))}}
-@media (prefers-reduced-motion:reduce){#spl .sl,#spl .sl::after{animation:none}}
 
 /* ---- player fullscreen ---- */
 .stage:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;background:#000}
@@ -694,10 +671,10 @@ body.hs header::before{opacity:1}
 #so .sh label{border-color:rgba(255,60,75,.7);box-shadow:0 0 0 3px rgba(255,50,70,.15)}
 
 /* ---- fix: logo jangan pecah dua baris, berat huruf sama dengan lapisan kilauan ---- */
-#logo,#spl .sl{white-space:nowrap}
+#logo{white-space:nowrap}
 #logo{flex:none}
-#logo b,#spl .sl b{display:inline;margin:0;font:inherit;white-space:nowrap;overflow:visible}
-#logo::after,#spl .sl::after{white-space:nowrap}
+#logo b{display:inline;margin:0;font:inherit;white-space:nowrap;overflow:visible}
+#logo::after{white-space:nowrap}
 
 /* ---- zoom default lebih besar sikit, kad filem dikecilkan sikit ---- */
 @media (max-width:760px),(pointer:coarse){
@@ -726,7 +703,6 @@ body.hs header::before{opacity:1}
 </style>
 </head>
 <body>
-<div id="spl" aria-hidden="true"><div class="sl">Bal<b>Flix</b></div><div class="sbar"><i></i></div></div>
 <header>
   <span class="logo" id="logo">Bal<b>Flix</b></span>
   <nav id="dn" aria-label="Main"><button id="dHome" class="on">Home</button><button id="dFilm">Films</button><button id="dTv">Series</button><button id="dList">Watchlist</button><button id="dBr">Browse<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></nav>
@@ -1708,14 +1684,6 @@ cm.onclick=e=>{if(e.target===cm)setOpen(false)};
 $("bn").addEventListener("click",()=>setOpen(false));
 addEventListener("keydown",e=>{if(e.key==="Escape"&&cm.classList.contains("open"))setOpen(false)});
 })();
-</script>
-<script>
-/* ---- splash ---- */
-(function(){const s=document.getElementById("spl");if(!s)return;const t0=performance.now();let done=false;
-const hide=()=>{if(done)return;done=true;s.classList.add("out");setTimeout(()=>s.remove(),700)};
-const go=()=>setTimeout(hide,Math.max(0,2800-(performance.now()-t0)));
-if(document.readyState==="complete")go();else addEventListener("load",go);
-setTimeout(hide,5000)})();
 </script>
 <script>
 /* ---- custom dropdown ---- */
