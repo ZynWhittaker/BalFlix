@@ -37,9 +37,10 @@
 :root{--red:#E50914;--org:#3f3f46;--dim:#a1a1aa;--line:rgba(255,255,255,.14)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 button,.card,.logo,#bn{-webkit-user-select:none;user-select:none}
-body{background:#07070d;color:#fff;font:16px/1.5 Inter,sans-serif;overflow-x:hidden;min-height:100vh}
+html{scrollbar-width:none}
+body{background:#07070d;color:#fff;font:16px/1.5 Inter,sans-serif;overflow-x:hidden;min-height:100vh;scrollbar-width:none}
 ::selection{background:var(--red)}
-::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:#444;border-radius:9px}
+::-webkit-scrollbar{width:0;height:0;display:none}::-webkit-scrollbar-thumb{background:#444;border-radius:9px}
 [hidden]{display:none!important}
 svg{width:1em;height:1em;fill:currentColor;flex:none}
 button{cursor:pointer;border:0;font:inherit;color:inherit;background:none}
@@ -101,8 +102,9 @@ body.hanim header,body.hanim header::before,body.hanim .sb,body.hanim #hb,body.h
 @media (prefers-reduced-motion:reduce){.hero img.hbg,.hc>*{transition:none}.hero .hl:not([hidden]){animation:none}}
 main{padding:0 4vw 100px}
 h2{display:flex;align-items:center;gap:12px;font:700 26px Figtree,Inter,sans-serif;margin:28px 0 14px}
-h2::before{content:"";width:4px;height:26px;border-radius:2px;background:var(--org)}
-.row{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x proximity}
+h2::before{content:"";width:4px;height:26px;border-radius:2px;background:#ff2a3c;box-shadow:0 0 10px rgba(255,42,60,.75)}
+.row{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x proximity;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
 .card{flex:none;width:140px;cursor:pointer;border-radius:12px;overflow:hidden;background:#000;scroll-snap-align:start;transition:transform .3s cubic-bezier(.25,1,.5,1)}
 .card:hover{transform:scale(1.03)}
 .card img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover}
@@ -465,7 +467,20 @@ body.cmo{overflow:hidden}body.cmo .chips{opacity:0;pointer-events:none}
 .srv{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
 .srv button{height:38px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.22);font-weight:700;font-size:14px;color:#d4d4d8}
 .srv button.on{background:#fff;color:#000;border-color:#fff}
-.ep.seen{opacity:.62}.ep.seen b::after{content:"\2713";color:#46d369;margin-left:8px}
+.ep.seen{opacity:.62}
+.shPop{position:fixed;inset:0;z-index:3000;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);padding:0 0 env(safe-area-inset-bottom,0px)}
+.shPop[hidden]{display:none}
+.shCard{width:100%;max-width:480px;background:#15151b;border-radius:20px 20px 0 0;padding:18px 16px calc(14px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:4px;animation:shUp .22s cubic-bezier(.25,1,.5,1)}
+@keyframes shUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.shT{font:800 15px Figtree,Inter,sans-serif;color:#a1a1aa;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px 10px}
+.shOpt{display:flex;align-items:center;gap:14px;width:100%;height:52px;padding:0 12px;border-radius:14px;font:700 16px Figtree,Inter,sans-serif;color:#fff;text-align:left}
+.shOpt:active,.shOpt:hover{background:rgba(255,255,255,.08)}
+.shIc{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;flex:none}
+.shIc svg{width:19px;height:19px;fill:currentColor}
+.shIc.wa{background:#25D366;color:#0a0a0d}
+.shIc.tg{background:#29A9EA;color:#0a0a0d}
+.shIc.cp{background:rgba(255,255,255,.12);color:#fff}
+.shCl{justify-content:center;color:#ff2a3c;font-weight:800;margin-top:6px;border-top:1px solid rgba(255,255,255,.1);border-radius:0;height:50px}
 .tabs{display:flex;gap:8px;margin:-8px 0 22px}
 .tabs button{height:40px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-weight:700;font-size:15px;color:#d4d4d8}
 .tabs button.on{background:#fff;color:#000;border-color:#fff}
@@ -812,6 +827,15 @@ body.hs header::before{opacity:1}
     <p class="ov" id="dInfo"></p>
     <button class="nx" id="nxBtn" hidden><svg viewBox="0 0 24 24"><path d="M5 4l10 8-10 8zM17 4h2v16h-2z"/></svg>Next episode</button><div class="srv" id="srvBox" hidden></div>
     <div class="acts"><button class="ib" id="wlBtn" aria-label="Add to watchlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg></button><button class="ib" id="shBtn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg></button><button class="ib" id="smBtn" aria-label="More like this"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v5M12 17v5M2 12h5M17 12h5M5 5l3.2 3.2M15.8 15.8L19 19M19 5l-3.2 3.2M8.2 15.8L5 19"/></svg></button><button class="ib" id="trBtn" aria-label="Watch trailer" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></button><button class="ib" id="zxBtn" aria-label="Open on zxcstream (choose quality)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></button></div>
+<div class="shPop" id="shPop" hidden>
+  <div class="shCard" id="shCard">
+    <p class="shT">Share</p>
+    <button class="shOpt" data-a="wa"><i class="shIc wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.5-1.8-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.5.1-.1.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.1.2-1.3-.1 0-.3-.1-.6-.2z"/><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1120.2 12 8.2 8.2 0 0112 20.2z"/></svg></i>WhatsApp</button>
+    <button class="shOpt" data-a="tg"><i class="shIc tg"><svg viewBox="0 0 24 24"><path d="M22 3L2 11l6 2 2 7 3.5-4L18 20l4-17z"/></svg></i>Telegram</button>
+    <button class="shOpt" data-a="cp"><i class="shIc cp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1"/></svg></i>Copy Link</button>
+    <button class="shOpt shCl" id="shClose">Cancel</button>
+  </div>
+</div>
     <select id="episode" hidden></select>
     <section class="sec" id="epBox" hidden>
       <p class="eb">WATCH IN ORDER</p><h2>Episodes</h2>
@@ -832,27 +856,21 @@ body.hs header::before{opacity:1}
 <script>
 /* ====== TETAPAN ====== */
 const TMDB_API_KEY = "67099229527898af1417e78e384e3dd6";
-const EMBED_MOVIE = "https://player.zxcstream.xyz/player/movie/{id}";  // andaian ikut corak /player/tv/{id}
-const EMBED_TV    = "https://player.zxcstream.xyz/player/tv/{id}";     // sah dari BalFlix; untuk musim/episod cuba ".../tv/{id}/{season}/{episode}"
-const EMBED_TV_EP = "https://player.zxcstream.xyz/player/tv/{id}/{season}/{episode}"; // dipakai bila episod dipilih dari senarai; ubah di sini kalau format player lain
-/* Server 2: vidsrc.to */
-const VID2_MOVIE  = "https://vidsrc.to/embed/movie/{id}";
-const VID2_TV     = "https://vidsrc.to/embed/tv/{id}";
-const VID2_TV_EP  = "https://vidsrc.to/embed/tv/{id}/{season}/{episode}";
-/* Server 3: 2embed.cc */
-const EMB3_MOVIE  = "https://www.2embed.cc/embed/{id}";
-const EMB3_TV     = "https://www.2embed.cc/embedtv/{id}";
-const EMB3_TV_EP  = "https://www.2embed.cc/embedtv/{id}&s={season}&e={episode}";
-/* Server 4: vidbolt.xyz (corak /embed/tv/{id}/{season}/{episode} sah dari salinan Drive; /embed/movie/{id} ikut corak sama) */
-const VID4_MOVIE  = "https://vidbolt.xyz/embed/movie/{id}";
-const VID4_TV     = "https://vidbolt.xyz/embed/tv/{id}";
-const VID4_TV_EP  = "https://vidbolt.xyz/embed/tv/{id}/{season}/{episode}";
-/* Senarai server. Tambah lagi server di sini (format sama), butang pilih server akan muncul automatik bila ada 2+ */
+
+/* Server 1: Vidstuck */
+const EMBED_MOVIE = "https://vidstuck.cc/embed/movie/{id}";
+const EMBED_TV    = "https://vidstuck.cc/embed/tv/{id}";
+const EMBED_TV_EP = "https://vidstuck.cc/embed/tv/{id}/{season}/{episode}";
+
+/* Server 2: VidBolt */
+const VID2_MOVIE  = "https://vidbolt.xyz/embed/movie/{id}";
+const VID2_TV     = "https://vidbolt.xyz/embed/tv/{id}";
+const VID2_TV_EP  = "https://vidbolt.xyz/embed/tv/{id}/{season}/{episode}";
+
+/* Senarai server */
 const SERVERS=[
   {n:"Server 1",m:EMBED_MOVIE,t:EMBED_TV,e:EMBED_TV_EP},
-  {n:"Server 2",m:VID2_MOVIE,t:VID2_TV,e:VID2_TV_EP},
-  {n:"Server 3",m:EMB3_MOVIE,t:EMB3_TV,e:EMB3_TV_EP},
-  {n:"Server 4",m:VID4_MOVIE,t:VID4_TV,e:VID4_TV_EP}
+  {n:"Server 2",m:VID2_MOVIE,t:VID2_TV,e:VID2_TV_EP}
 ];
 /* ===================== */
 const API="https://api.themoviedb.org/3",IMG="https://image.tmdb.org/t/p/";
@@ -1009,7 +1027,6 @@ function heroBg(src,dir){
     n.addEventListener("transitionend",clean,{once:true});setTimeout(clean,1300);
     requestAnimationFrame(()=>requestAnimationFrame(()=>{n.classList.add("on");if(dir)n.style.transform=""}));
   };
-  /* decode dulu supaya gambar besar tak tersangkut masa animasi */
   (n.decode?n.decode():Promise.reject()).then(go,go);
 }
 function setSlide(i,dir){
@@ -1026,7 +1043,6 @@ function setSlide(i,dir){
   clearTimeout(swT);
   if(first){paint();return}
   hBusy();
-  /* teks: keluar ikut arah swipe, tukar, masuk dari sisi lain (Web Animations = tiada forced reflow) */
   const cs=getComputedStyle(hc),fT=cs.transform,fO=cs.opacity;
   if(hAnim){hAnim.cancel();hAnim=null}
   const ex=Math.max(60,Math.abs(hx));hx=0;hc.style.transform="";hc.style.opacity="";
@@ -1043,7 +1059,7 @@ function autoplay(){
   if(matchMedia("(prefers-reduced-motion:reduce)").matches||slides.length<2)return;
   heroTimer=setInterval(()=>{if(!$("dlg").open)setSlide((si+1)%slides.length,1)},7000);
 }
-/* ---- hero: swipe dengan jari (ikut jari, spring back, snap) ---- */
+/* ---- hero: swipe dengan jari ---- */
 (function(){
   const h=$("hero");let id=null,x0=0,y0=0,dx=0,w=1,live=false,moved=false,lastT=0,lastX=0,vx=0,lock=0,raf=0;
   const hcEl=()=>h.querySelector(".hc");
@@ -1416,8 +1432,12 @@ function renderEps(){const seenM=(current&&jget(seK(),{})[current.type+":"+curre
   l.className="epl"+(epGrid?" g":"");l.innerHTML="";
   if(!a.length){l.innerHTML='<p class="epm">'+(n?"No episodes match.":"No episode list available.")+'</p>';return}
   a.forEach(e=>{const b=document.createElement("button");b.className="ep"+(epPicked&&String(e.episode_number)===sel?" on":"")+(seenM[$("season").value+"-"+e.episode_number]?" seen":"");
-    const th=e.still_path?document.createElement("img"):document.createElement("div");
-    if(e.still_path){th.loading="lazy";th.alt="";th.src=IMG+"w300"+e.still_path}else th.className="ph";
+    const fb=current&&(current.back||current.poster);
+    const fbUrl=fb?pu("w300",fb):"";
+    const th=(e.still_path||fbUrl)?document.createElement("img"):document.createElement("div");
+    if(e.still_path){th.loading="lazy";th.alt="";th.src=IMG+"w300"+e.still_path;if(fbUrl)th.onerror=function(){this.onerror=null;this.src=fbUrl;this.className="ph"}}
+    else if(fbUrl){th.loading="lazy";th.alt="";th.src=fbUrl;th.className="ph"}
+    else th.className="ph";
     const t=document.createElement("div");t.className="tx";
     const h=document.createElement("b");const ni=document.createElement("i");ni.textContent=e.episode_number+".";h.append(ni,e.name||("Episode "+e.episode_number));
     const p=document.createElement("p");p.textContent=e.overview||"No description yet.";
@@ -1486,8 +1506,20 @@ $("epRange").onchange=renderEps;
 $("epQ").oninput=renderEps;
 $("epSort").onclick=()=>{epDesc=!epDesc;$("epSort").classList.toggle("on",epDesc);renderEps()};
 $("epView").onclick=()=>{epGrid=!epGrid;$("epView").classList.toggle("on",epGrid);renderEps()};
+function shOpen(){$("shPop").hidden=false}
+function shCloseP(){$("shPop").hidden=true}
 $("shBtn").onclick=async()=>{if(!current)return;const u=location.href,t=current.name;
-  try{if(navigator.share)await navigator.share({title:t,url:u});else{await navigator.clipboard.writeText(t+" \u2013 "+u);$("shBtn").classList.add("on");setTimeout(()=>$("shBtn").classList.remove("on"),1200)}}catch(e){}};
+  if(navigator.share){try{await navigator.share({title:t,url:u});return}catch(e){if(e&&e.name==="AbortError")return}}
+  shOpen()};
+$("shClose").onclick=shCloseP;
+$("shPop").onclick=e=>{if(e.target.id==="shPop")shCloseP()};
+document.querySelectorAll(".shOpt[data-a]").forEach(b=>b.onclick=async()=>{
+  if(!current){shCloseP();return}
+  const u=location.href,t=current.name,msg=t+" \u2013 "+u,a=b.dataset.a;
+  if(a==="wa")window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
+  else if(a==="tg")window.open("https://t.me/share/url?url="+encodeURIComponent(u)+"&text="+encodeURIComponent(t),"_blank");
+  else if(a==="cp"){try{await navigator.clipboard.writeText(msg)}catch(e){}$("shBtn").classList.add("on");setTimeout(()=>$("shBtn").classList.remove("on"),1200)}
+  shCloseP()});
 $("smBtn").onclick=()=>{const m=$("moreBox");if(!m.hidden)m.scrollIntoView({behavior:"smooth",block:"start"})};
 $("zxBtn").onclick=()=>{if(!current)return;window.open("https://zxcstream.icu/watch/"+current.type+"/"+current.id,"_blank","noopener")};
 $("close").onclick=()=>$("dlg").close();
@@ -1512,7 +1544,7 @@ function u(){b.classList.toggle("hs",scrollY>60&&h.style.display!=="none");t=fal
 addEventListener("scroll",()=>{if(!t){t=true;requestAnimationFrame(u)}},{passive:true});})();
 </script>
 <script>
-/* ====== LOG MASUK: front-end sahaja (kata laluan boleh dilihat dalam source, bukan keselamatan sebenar) ====== */
+/* ====== LOG MASUK: front-end sahaja ====== */
 const PAL=["#8b5cf6","#648f3f","#ffab00","#0e8080","#aa0000"],mem={};
 const ls={g:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},d:k=>{try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
 let user="local",profs=null,cur=+ls.g("bf_cur")||0,editing=false,editI=-1,topItems=null,st;
@@ -1521,7 +1553,6 @@ if(!Array.isArray(profs)||!profs.length)profs=[{n:"Bal",c:PAL[0]},{n:"test",c:PA
 if(cur>=profs.length)cur=0;
 const save=()=>{ls.s("bf_profs",JSON.stringify(profs));ls.s("bf_cur",cur)};
 const lock=()=>document.body.classList.toggle("mo",$("mn").classList.contains("open")||$("so").classList.contains("open"));
-/* ---- menu ---- */
 const BURGER="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z",CROSS="M5.7 4.3L12 10.6l6.3-6.3 1.4 1.4-6.3 6.3 6.3 6.3-1.4 1.4-6.3-6.3-6.3 6.3-1.4-1.4 6.3-6.3-6.3-6.3z";
 function menu(o){$("mn").classList.toggle("open",o);lock()}
 
@@ -1639,13 +1670,12 @@ const LOGO_LANGS="en,null,ms,id,zh,ja,ko,hi,ta,te,ml,kn,bn,th,tr,tl,es,fr,de,it,
 async function getLogo(it){const k=it.type+it.id;if(k in hLogos)return hLogos[k];
   let r=null;
   for(let n=0;n<2&&!r;n++){try{r=await tmdb("/"+it.type+"/"+it.id+"/images",{include_image_language:LOGO_LANGS})}catch(e){}}
-  if(!r)return null;/* ralat rangkaian: jangan cache supaya boleh cuba lagi */
+  if(!r)return null;
   const ui=(UILANG||"en-US").slice(0,2);
   const a=(r.logos||[]).filter(x=>x.file_path);
   const rank=x=>x.iso_639_1===ui?0:x.iso_639_1==="en"?1:x.iso_639_1===null?2:3;
   a.sort((p,q)=>rank(p)-rank(q)||(q.vote_average||0)-(p.vote_average||0)||(q.width||0)-(p.width||0));
   const b=a[0];
-  /* SVG tiada versi w500, guna original */
   hLogos[k]=b?{path:b.file_path,size:b.file_path.endsWith(".svg")?"original":"w500"}:null;
   return hLogos[k]}
 async function heroLogo(it){const l=$("hL"),t=$("hT");l.hidden=true;t.classList.remove("sr");
@@ -1680,7 +1710,7 @@ addEventListener("keydown",e=>{if(e.key==="Escape"&&cm.classList.contains("open"
 })();
 </script>
 <script>
-/* ---- splash: tunjuk sekurang-kurangnya ~1.7s, lepas tu fade out ---- */
+/* ---- splash ---- */
 (function(){const s=document.getElementById("spl");if(!s)return;const t0=performance.now();let done=false;
 const hide=()=>{if(done)return;done=true;s.classList.add("out");setTimeout(()=>s.remove(),700)};
 const go=()=>setTimeout(hide,Math.max(0,2800-(performance.now()-t0)));
@@ -1688,7 +1718,7 @@ if(document.readyState==="complete")go();else addEventListener("load",go);
 setTimeout(hide,5000)})();
 </script>
 <script>
-/* ---- custom dropdown: select asal kekal (state), UI diganti ---- */
+/* ---- custom dropdown ---- */
 (function(){
 function enhance(sel){
   const w=sel.closest(".pl2");if(!w)return;
@@ -1726,7 +1756,6 @@ document.getElementById("dlg").addEventListener("close",closeAll);
 (function(){
 $("wlTabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;wlTab=b.dataset.t;[...$("wlTabs").children].forEach(x=>x.classList.toggle("on",x===b));wlDraw()};
 
-/* filter page */
 const GM=[["Action",28],["Adventure",12],["Animation",16],["Comedy",35],["Crime",80],["Documentary",99],["Drama",18],["Family",10751],["Fantasy",14],["History",36],["Horror",27],["Music",10402],["Mystery",9648],["Romance",10749],["Sci-Fi",878],["Thriller",53],["War",10752],["Western",37]];
 const GT=[["Action & Adventure",10759],["Animation",16],["Comedy",35],["Crime",80],["Documentary",99],["Drama",18],["Family",10751],["Kids",10762],["Mystery",9648],["Reality",10764],["Sci-Fi & Fantasy",10765],["War & Politics",10768],["Western",37]];
 const LGS=[["","Any language"],["en","English"],["ms","Malay"],["id","Indonesian"],["ko","Korean"],["ja","Japanese"],["zh","Chinese"],["th","Thai"],["hi","Hindi"],["ta","Tamil"],["te","Telugu"],["ml","Malayalam"],["tr","Turkish"],["tl","Filipino"],["es","Spanish"],["fr","French"]];
@@ -1761,7 +1790,6 @@ $("flT").onclick=()=>{setType("tv");flLoad(true)};
 $("flMore").onclick=()=>{flPage++;flLoad(false)};
 $("bn").addEventListener("click",()=>showFl(false));
 
-/* menu: filter, bahasa, install */
 const cp=$("cp");let n=40;
 function grp(t){const h=document.createElement("div");h.className="cg";h.textContent=t;cp.appendChild(h);const g=document.createElement("div");g.className="cgrid";cp.appendChild(g);return[h,g]}
 function btn(g,txt,fn,full){const b=document.createElement("button");b.className="ci"+(full?" full":"");b.style.setProperty("--i",n++);const s=document.createElement("span");s.textContent=txt;b.append(s);b.onclick=fn;g.appendChild(b);return b}
@@ -1778,12 +1806,9 @@ gh.hidden=gi.hidden=true;
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;gh.hidden=gi.hidden=false});
 addEventListener("appinstalled",()=>{dip=null;gh.hidden=gi.hidden=true});
 
-/* profil tersimpan bukan 0: muat semula row ikut profil */
 if(cur!==0)home();
-/* PWA */
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 })();
-/* ---- desktop nav (gaya MoviePrime) ---- */
 [["dHome","nHome"],["dFilm","nFilm"],["dTv","nTv"],["dList","nList"]].forEach(([a,b])=>{$(a).onclick=()=>{if($("cm").classList.contains("open"))$("hb").click();$(b).onclick()}});
 $("dBr").onclick=()=>$("hb").click();
 DKQ.addEventListener("change",()=>{if($("home").style.display!=="none")home()});
@@ -1793,14 +1818,12 @@ DKQ.addEventListener("change",()=>{if($("home").style.display!=="none")home()});
 <div id="pbt" role="status"><span id="pbtMsg">Video tak nak play?</span><button type="button" id="pbtGo">Tukar server</button></div>
 <script>
 $("pbtGo").onclick=()=>{pbtHide();srvI=(srvI+1)%SERVERS.length;play()};
-/* ---- butang back telefon: undur satu langkah; di menu utama tanya dulu sebelum keluar ---- */
 (function(){
 let armed=false,leaving=false,tt,t1,t2,t3;
 const push=()=>{try{history.pushState({bf:1},"")}catch(e){}};
 const EV=["pointerup","touchend","click","keydown"];
 function arm(){
   if(armed)return;
-  /* Chrome abaikan entri sejarah jika halaman belum pernah diketuk (scroll tak dikira) — tunggu ketukan sebenar */
   if(navigator.userActivation&&!navigator.userActivation.hasBeenActive)return;
   armed=true;EV.forEach(ev=>removeEventListener(ev,arm));
   try{history.replaceState({bf:0},"")}catch(e){}push()}
@@ -1809,6 +1832,10 @@ const ask=o=>{$("xq").hidden=!o;if(o)$("xqY").focus()};
 function toast(m){const t=$("xt");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{t.hidden=true},2500)}
 function step(){
   const dlg=$("dlg");
+  // Paksa keluar dari skrin penuh jika aktif
+  if (document.fullscreenElement) { document.exitFullscreen(); }
+  else if (document.webkitFullscreenElement) { document.webkitExitFullscreen(); }
+  
   if(dlg.open){dlg.close();return}
   if(!$("xq").hidden){ask(false);return}
   if(!$("ep").hidden){$("ep").hidden=true;return}
@@ -1832,7 +1859,7 @@ $("xqY").onclick=()=>{
   history.go(-2);
   t1=setTimeout(()=>{
     try{window.close()}catch(e){}
-    t2=setTimeout(()=>{ /* masih di sini = tiada halaman sebelum ini (cth app dipasang) */
+    t2=setTimeout(()=>{
       history.back();
       toast("Tekan butang back sekali lagi untuk keluar");
       t3=setTimeout(()=>{leaving=false;push()},2600);
